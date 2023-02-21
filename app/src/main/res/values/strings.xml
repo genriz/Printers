@@ -12,7 +12,11 @@
     <string name="add">Добавить</string>
     <string name="toner_count">На складе</string>
     <string name="locations">Расположения</string>
+    <string name="location">Расположение</string>
     <string name="office">Офис</string>
     <string name="floor">Этаж</string>
     <string name="room">Комната</string>
+    <string name="add_location">Добавить расположение</string>
+    <string name="in_stock">В наличии</string>
+    <string name="select">Выбрать</string>
 </resources>

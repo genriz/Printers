@@ -39,6 +39,10 @@ class SettingsFragment:Fragment(), LocationsListAdapter.OnClickListener {
         binding.btnAddLocation.setOnClickListener {
             (activity as MainActivity).navController.navigate(R.id.LocationDetailsFragment)
         }
+
+        binding.btnBack.setOnClickListener {
+            (activity as MainActivity).navController.navigateUp()
+        }
     }
 
     override fun onLocationClick(location: Location, position: Int) {

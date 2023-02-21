@@ -14,5 +14,6 @@ class Location{
         get():String{
             return "$office $room"
         }
-
+    var tonerCount: Int = 0
+    var printerCount: Int = 0
 }

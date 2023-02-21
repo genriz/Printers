@@ -5,20 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.app.printers.adapters.TonersListAdapter
 import com.app.printers.databinding.FragmentPrinterDetailsBinding
+import com.app.printers.model.Location
 import com.app.printers.model.Printer
 import com.app.printers.model.Toner
 import com.app.printers.ui.main.MainActivity
+import com.app.printers.ui.toner.DialogLocations
 
 class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
-    DialogToners.OnTonerSelected {
+    DialogToners.OnTonerSelected, DialogLocations.OnLocationSelected {
 
     private lateinit var binding: FragmentPrinterDetailsBinding
     private val viewModel by lazy { ViewModelProvider(this)[PrinterDetailsViewModel::class.java] }
     private lateinit var dialogToners: DialogToners
     private var toners = ArrayList<Toner>()
+    private lateinit var dialogLocations: DialogLocations
+    private var currentPrinter = Printer()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,22 +41,73 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
         arguments?.let{
             viewModel.getPrinterById(it.getInt("id")).observe(viewLifecycleOwner){printer->
                 printer?.let{
-                    setView(printer)
+                    currentPrinter = printer
+                    setView()
                 }
             }
         }
 
-        if (arguments==null) setView(Printer())
+        if (arguments==null) setView()
 
     }
 
-    private fun setView(printer: Printer) {
+    private fun setView() {
 
-        toners.addAll(printer.toners)
+        viewModel.getAllPrinters().observe(viewLifecycleOwner){printers->
+            printers?.let{
+                val printerNameList = mutableListOf<String>()
+                val printerManufactureList = mutableListOf<String>()
+                val printerModelList = mutableListOf<String>()
+                for (printer in printers){
+                    printerNameList.add(printer.name)
+                    printerManufactureList.add(printer.manufacturer)
+                    printerModelList.add(printer.model)
+                }
+                val adapterName: ArrayAdapter<String> =
+                    ArrayAdapter(requireContext(),
+                        androidx.appcompat.R.layout.select_dialog_item_material,
+                        printerNameList)
+                val adapterManufacture: ArrayAdapter<String> =
+                    ArrayAdapter(requireContext(),
+                        androidx.appcompat.R.layout.select_dialog_item_material,
+                        printerManufactureList)
+                val adapterModel: ArrayAdapter<String> =
+                    ArrayAdapter(requireContext(),
+                        androidx.appcompat.R.layout.select_dialog_item_material,
+                        printerModelList)
+                binding.inputName.setAdapter(adapterName)
+                binding.inputManufacture.setAdapter(adapterManufacture)
+                binding.inputModel.setAdapter(adapterModel)
+            }
+        }
+
+        toners.addAll(currentPrinter.toners)
 
         binding.adapter!!.submitList(toners.toMutableList())
 
-        binding.printer = printer
+        if (currentPrinter.location!=null){
+            binding.btnLocation.isVisible = false
+        }
+
+        binding.printerLocation.setOnClickListener {
+            viewModel.getLocations().observe(viewLifecycleOwner){locations->
+                locations?.let{
+                    dialogLocations = DialogLocations(requireContext(), locations, this)
+                    dialogLocations.show()
+                }
+            }
+        }
+
+        binding.btnLocation.setOnClickListener {
+            viewModel.getLocations().observe(viewLifecycleOwner){locations->
+                locations?.let{
+                    dialogLocations = DialogLocations(requireContext(), locations, this)
+                    dialogLocations.show()
+                }
+            }
+        }
+
+        binding.printer = currentPrinter
         binding.executePendingBindings()
 
         binding.btnAddToner.setOnClickListener {
@@ -79,17 +136,17 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
         }
 
         binding.btnDone.setOnClickListener {
-            if (printer.name.isNotEmpty()||
-                printer.manufacturer.isNotEmpty()||
-                printer.model.isNotEmpty()) {
-                printer.toners = toners
-                viewModel.insertPrinter(printer)
+            if (currentPrinter.name.isNotEmpty()||
+                currentPrinter.manufacturer.isNotEmpty()||
+                currentPrinter.model.isNotEmpty()) {
+                currentPrinter.toners = toners
+                viewModel.insertPrinter(currentPrinter)
             }
             back()
         }
 
         binding.btnDelete.setOnClickListener {
-            viewModel.deletePrinter(printer)
+            viewModel.deletePrinter(currentPrinter)
             back()
         }
 
@@ -107,6 +164,13 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
     override fun onTonerSelected(toner: Toner) {
         toners.add(toner)
         binding.adapter!!.submitList(toners.toMutableList())
+    }
+
+    override fun onLocationSelected(location: Location) {
+        binding.btnLocation.isVisible = false
+        currentPrinter.location = location
+        binding.printer = currentPrinter
+        binding.executePendingBindings()
     }
 
 }

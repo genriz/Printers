@@ -6,14 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.app.printers.adapters.LocationsDetailedListAdapter
 import com.app.printers.databinding.FragmentTonerDetailsBinding
+import com.app.printers.model.Location
 import com.app.printers.model.Toner
 import com.app.printers.ui.main.MainActivity
 
-class TonerDetailsFragment : Fragment() {
+class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickListener,
+    DialogLocations.OnLocationSelected {
 
     private lateinit var binding: FragmentTonerDetailsBinding
     private val viewModel by lazy { ViewModelProvider(this)[TonerDetailsViewModel::class.java] }
+    private lateinit var dialogLocations: DialogLocations
+    private var locations = ArrayList<Location>()
+    private var currentToner = Toner()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,35 +31,54 @@ class TonerDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.adapter = LocationsDetailedListAdapter(this)
+
         arguments?.let{
             viewModel.getTonerById(it.getInt("id")).observe(viewLifecycleOwner){toner->
                 toner?.let{
-                    setView(toner)
+                    currentToner = toner
+                    setView()
                 }
             }
         }
 
-        if (arguments==null) setView(Toner())
+        if (arguments==null) {
+            currentToner = Toner()
+            setView()
+        }
 
     }
 
-    private fun setView(currentToner: Toner){
+    private fun setView(){
+
+        locations.addAll(currentToner.locations)
+        binding.adapter!!.submitList(locations.toMutableList())
+
         binding.toner = currentToner
         binding.executePendingBindings()
 
-        binding.btnRemoveToner.setOnClickListener {
-            if (currentToner.count>0){
-                currentToner.count--
-                binding.toner = currentToner
-                binding.executePendingBindings()
+
+        binding.btnAddLocation.setOnClickListener {
+            viewModel.getLocations().observe(viewLifecycleOwner){
+                it?.let{
+                    val locationsList = ArrayList<Location>()
+                    it.forEach { location ->
+                        var exist = false
+                        locations.forEach{ l->
+                            if (l.id==location.id){
+                                exist = true
+                            }
+                        }
+                        if (!exist){
+                            locationsList.add(location)
+                        }
+                    }
+                    dialogLocations = DialogLocations(requireContext(), locationsList, this)
+                    dialogLocations.show()
+                }
             }
         }
 
-        binding.btnAddToner.setOnClickListener {
-            currentToner.count++
-            binding.toner = currentToner
-            binding.executePendingBindings()
-        }
 
         binding.btnBack.setOnClickListener {
             back()
@@ -61,6 +86,7 @@ class TonerDetailsFragment : Fragment() {
 
         binding.btnDone.setOnClickListener {
             if (currentToner.name.isNotEmpty()) {
+                currentToner.locations = locations
                 viewModel.insertToner(currentToner)
             }
             back()
@@ -74,6 +100,28 @@ class TonerDetailsFragment : Fragment() {
 
     private fun back() {
         (activity as MainActivity).navController.navigateUp()
+    }
+
+    override fun onLocationClick(location: Location, position: Int) {
+        locations.remove(location)
+        binding.adapter!!.submitList(locations.toMutableList())
+    }
+
+    override fun onTonerAdd() {
+        currentToner.count++
+        binding.toner = currentToner
+        binding.executePendingBindings()
+    }
+
+    override fun onTonerRemove() {
+        currentToner.count--
+        binding.toner = currentToner
+        binding.executePendingBindings()
+    }
+
+    override fun onLocationSelected(location: Location) {
+        locations.add(location)
+        binding.adapter!!.submitList(locations.toMutableList())
     }
 
 }

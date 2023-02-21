@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.printers.data.Repository
+import com.app.printers.model.Location
 import com.app.printers.model.Printer
 import com.app.printers.model.Toner
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +35,14 @@ class PrinterDetailsViewModel: ViewModel() {
                 Repository.deletePrinter(printer)
             }
         }
+    }
+
+    fun getLocations(): LiveData<List<Location>>{
+        return Repository.getLocations()
+    }
+
+    fun getAllPrinters(): LiveData<List<Printer>> {
+        return Repository.getPrinters()
     }
 
 }
