@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Printers</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="printers">Принтеры</string>
+    <string name="toners">Расходные материалы</string>
+    <string name="printer_name">Сетевое имя принтера</string>
+    <string name="printer_manufacture">Производитель принтера</string>
+    <string name="printer_model">Модель принтера</string>
+    <string name="delete">Удалить</string>
+    <string name="toner_name">Название расходного материала</string>
+    <string name="close">Закрыть</string>
+    <string name="add">Добавить</string>
+    <string name="toner_count">На складе</string>
+    <string name="locations">Расположения</string>
+    <string name="office">Офис</string>
+    <string name="floor">Этаж</string>
+    <string name="room">Комната</string>
+</resources>
