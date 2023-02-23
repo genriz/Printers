@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.app.printers.R
 import com.app.printers.adapters.LocationsDetailedListAdapter
 import com.app.printers.databinding.FragmentTonerDetailsBinding
 import com.app.printers.model.Location
@@ -37,6 +39,9 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
             viewModel.getTonerById(it.getInt("id")).observe(viewLifecycleOwner){toner->
                 toner?.let{
                     currentToner = toner
+                    binding.tonerNameEdit.isEnabled = false
+                    binding.tonerNameEdit.setTextColor(ContextCompat
+                        .getColor(requireContext(),R.color.black))
                     setView()
                 }
             }

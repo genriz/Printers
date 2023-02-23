@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
         binding.pagerMain.adapter = PagerMainAdapter(requireActivity())
         TabLayoutMediator(binding.tabsMain, binding.pagerMain) { tab, position ->
             tab.text = when (position) {
-                0 -> getString(R.string.printers)
+                1 -> getString(R.string.printers)
                 else -> getString(R.string.toners)
             }
         }.attach()

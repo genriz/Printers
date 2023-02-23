@@ -13,7 +13,7 @@ class PagerMainAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter
 
     override fun createFragment(position: Int): Fragment {
         return when (position){
-            0 -> PrintersListFragment()
+            1 -> PrintersListFragment()
             else -> TonersListFragment()
         }
     }
