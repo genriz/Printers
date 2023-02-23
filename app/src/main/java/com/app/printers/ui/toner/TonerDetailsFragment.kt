@@ -13,6 +13,7 @@ import com.app.printers.databinding.FragmentTonerDetailsBinding
 import com.app.printers.model.Location
 import com.app.printers.model.Toner
 import com.app.printers.ui.main.MainActivity
+import com.google.android.material.snackbar.Snackbar
 
 class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickListener,
     DialogLocations.OnLocationSelected {
@@ -22,6 +23,8 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
     private lateinit var dialogLocations: DialogLocations
     private var locations = ArrayList<Location>()
     private var currentToner = Toner()
+    private var allToners = ArrayList<Toner>()
+    private var isEdit = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +45,7 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
                     binding.tonerNameEdit.isEnabled = false
                     binding.tonerNameEdit.setTextColor(ContextCompat
                         .getColor(requireContext(),R.color.black))
+                    isEdit = true
                     setView()
                 }
             }
@@ -58,6 +62,13 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
 
         locations.addAll(currentToner.locations)
         binding.adapter!!.submitList(locations.toMutableList())
+
+        viewModel.getAllToners().observe(viewLifecycleOwner){toners->
+            toners?.let{
+                allToners.clear()
+                allToners.addAll(toners)
+            }
+        }
 
         binding.toner = currentToner
         binding.executePendingBindings()
@@ -91,10 +102,21 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
 
         binding.btnDone.setOnClickListener {
             if (currentToner.name.isNotEmpty()) {
-                currentToner.locations = locations
-                viewModel.insertToner(currentToner)
+                var exists = false
+                allToners.forEach {
+                    if (currentToner.name==it.name){
+                        exists = true
+                    }
+                }
+                if (!isEdit&&exists){
+                    Snackbar.make(binding.btnDelete, R.string.toner_exist,
+                        Snackbar.LENGTH_LONG).show()
+                } else {
+                    currentToner.locations = locations
+                    viewModel.insertToner(currentToner)
+                    back()
+                }
             }
-            back()
         }
 
         binding.btnDelete.setOnClickListener {

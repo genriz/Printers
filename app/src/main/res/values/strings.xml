@@ -19,4 +19,6 @@
     <string name="add_location">Добавить расположение</string>
     <string name="in_stock">В наличии</string>
     <string name="select">Выбрать</string>
+    <string name="toner_exist">Расходный материал с таким именем уже существует!</string>
+    <string name="printer_exist">Принтер с таким именем уже существует!</string>
 </resources>

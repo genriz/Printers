@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.app.printers.R
 import com.app.printers.adapters.TonersListAdapter
 import com.app.printers.databinding.FragmentPrinterDetailsBinding
 import com.app.printers.model.Location
@@ -15,6 +16,7 @@ import com.app.printers.model.Printer
 import com.app.printers.model.Toner
 import com.app.printers.ui.main.MainActivity
 import com.app.printers.ui.toner.DialogLocations
+import com.google.android.material.snackbar.Snackbar
 
 class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
     DialogToners.OnTonerSelected, DialogLocations.OnLocationSelected {
@@ -23,8 +25,11 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
     private val viewModel by lazy { ViewModelProvider(this)[PrinterDetailsViewModel::class.java] }
     private lateinit var dialogToners: DialogToners
     private var toners = ArrayList<Toner>()
+    private var tonersIds = ArrayList<Int>()
     private lateinit var dialogLocations: DialogLocations
     private var currentPrinter = Printer()
+    private var allPrinters = ArrayList<Printer>()
+    private var isEdit = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +47,7 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
             viewModel.getPrinterById(it.getInt("id")).observe(viewLifecycleOwner){printer->
                 printer?.let{
                     currentPrinter = printer
+                    isEdit = true
                     setView()
                 }
             }
@@ -55,6 +61,8 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
 
         viewModel.getAllPrinters().observe(viewLifecycleOwner){printers->
             printers?.let{
+                allPrinters.clear()
+                allPrinters.addAll(printers)
                 val printerNameList = mutableListOf<String>()
                 val printerManufactureList = mutableListOf<String>()
                 val printerModelList = mutableListOf<String>()
@@ -81,9 +89,16 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
             }
         }
 
-        toners.addAll(currentPrinter.toners)
-
-        binding.adapter!!.submitList(toners.toMutableList())
+        viewModel.getAllToners().observe(viewLifecycleOwner){toners->
+            toners?.let{
+                toners.forEach { toner->
+                    if (currentPrinter.tonersIds.contains(toner.id)){
+                        this.toners.add(toner)
+                    }
+                }
+                binding.adapter!!.submitList(this.toners.toMutableList())
+            }
+        }
 
         if (currentPrinter.location!=null){
             binding.btnLocation.isVisible = false
@@ -139,10 +154,21 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
             if (currentPrinter.name.isNotEmpty()||
                 currentPrinter.manufacturer.isNotEmpty()||
                 currentPrinter.model.isNotEmpty()) {
-                currentPrinter.toners = toners
-                viewModel.insertPrinter(currentPrinter)
+                var exists = false
+                allPrinters.forEach {
+                    if (currentPrinter.name==it.name){
+                        exists = true
+                    }
+                }
+                if (!isEdit&&exists){
+                    Snackbar.make(binding.btnDelete, R.string.printer_exist,
+                        Snackbar.LENGTH_LONG).show()
+                } else {
+                    currentPrinter.tonersIds = tonersIds
+                    viewModel.insertPrinter(currentPrinter)
+                    back()
+                }
             }
-            back()
         }
 
         binding.btnDelete.setOnClickListener {
@@ -157,11 +183,13 @@ class PrinterDetailsFragment : Fragment(), TonersListAdapter.OnClickListener,
     }
 
     override fun onTonerClick(toner: Toner, position: Int) {
+        tonersIds.remove(toner.id)
         toners.remove(toner)
         binding.adapter!!.submitList(toners.toMutableList())
     }
 
     override fun onTonerSelected(toner: Toner) {
+        tonersIds.add(toner.id)
         toners.add(toner)
         binding.adapter!!.submitList(toners.toMutableList())
     }

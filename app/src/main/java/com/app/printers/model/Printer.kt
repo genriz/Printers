@@ -19,6 +19,6 @@ class Printer{
     }
     var serial: String = ""
     var location: Location? = null
-    var toners: List<Toner> = ArrayList()
+    var tonersIds: List<Int> = ArrayList()
     var count: Int = 0
 }

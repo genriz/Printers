@@ -12,6 +12,10 @@ import kotlinx.coroutines.withContext
 
 class TonerDetailsViewModel: ViewModel() {
 
+    fun getAllToners(): LiveData<List<Toner>>{
+        return Repository.getToners()
+    }
+
     fun getTonerById(id: Int): LiveData<Toner> {
         return Repository.getTonerById(id)
     }

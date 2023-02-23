@@ -2,7 +2,6 @@ package com.app.printers.data
 
 import androidx.room.TypeConverter
 import com.app.printers.model.Location
-import com.app.printers.model.Toner
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -19,13 +18,13 @@ class RoomConverter {
     }
 
     @TypeConverter
-    fun fromJsonToListToner(value: String?): List<Toner?>? {
-        val listType: Type = object : TypeToken<List<Toner?>?>() {}.type
+    fun fromJsonToListTonerIds(value: String?): List<Int?>? {
+        val listType: Type = object : TypeToken<List<Int?>?>() {}.type
         return Gson().fromJson(value, listType)
     }
 
     @TypeConverter
-    fun fromListTonerToJson(list: List<Toner?>?): String? {
+    fun fromListTonerIdsToJson(list: List<Int?>?): String? {
         val gson = Gson()
         return gson.toJson(list)
     }
