@@ -14,183 +14,192 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:src="@drawable/ic_back"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/btnBack"
-            tools:ignore="ContentDescription" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:src="@drawable/ic_done"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/btnDone"
-            tools:ignore="ContentDescription" />
-
-        <com.google.android.material.textfield.TextInputLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/btnDone"
-            android:id="@+id/printerNameInput"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="12dp"
-            android:hint="@string/printer_name"
-            android:textColorHint="@color/purple_700"
-            app:boxBackgroundColor="@color/white">
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={printer.name}"
-                android:textSize="18sp"
-                android:inputType="textCapCharacters"
-                android:id="@+id/inputName"
-                style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"/>
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@={printer.name}"-->
-<!--                android:textSize="18sp"-->
-<!--                android:paddingBottom="4dp"-->
-<!--                android:inputType="textCapCharacters"/>-->
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/btnBack"
+                    tools:ignore="ContentDescription" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_done"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/btnDone"
+                    tools:ignore="ContentDescription" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/printerNameInput"
-            android:id="@+id/printerManufactureInput"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="12dp"
-            android:hint="@string/printer_manufacture"
-            android:textColorHint="@color/purple_700"
-            app:boxBackgroundColor="@color/white">
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={printer.manufacturer}"
-                android:textSize="18sp"
-                android:inputType="textCapWords"
-                android:id="@+id/inputManufacture"
-                style="@style/Widget.Material3.AutoCompleteTextView.FilledBox.Dense"/>
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@={printer.manufacturer}"-->
-<!--                android:textSize="18sp"-->
-<!--                android:paddingBottom="4dp"-->
-<!--                android:inputType="textCapWords"/>-->
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/btnDone"
+                    android:id="@+id/printerNameInput"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/printer_name"
+                    android:textColorHint="@color/purple_700"
+                    app:boxBackgroundColor="@color/white">
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={printer.name}"
+                        android:textSize="18sp"
+                        android:inputType="textCapCharacters"
+                        android:id="@+id/inputName"
+                        style="@style/Widget.Material3.AutoCompleteTextView.FilledBox.Dense"/>
+                    <!--            <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:text="@={printer.name}"-->
+                    <!--                android:textSize="18sp"-->
+                    <!--                android:paddingBottom="4dp"-->
+                    <!--                android:inputType="textCapCharacters"/>-->
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/printerManufactureInput"
-            android:id="@+id/printerModelInput"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="12dp"
-            android:hint="@string/printer_model"
-            android:textColorHint="@color/purple_700"
-            app:boxBackgroundColor="@color/white">
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={printer.model}"
-                android:textSize="18sp"
-                android:inputType="textCapWords"
-                android:id="@+id/inputModel"
-                style="@style/Widget.Material3.AutoCompleteTextView.FilledBox.Dense"/>
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@={printer.model}"-->
-<!--                android:textSize="18sp"-->
-<!--                android:paddingBottom="4dp"-->
-<!--                android:inputType="textCapCharacters"/>-->
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/printerNameInput"
+                    android:id="@+id/printerManufactureInput"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/printer_manufacture"
+                    android:textColorHint="@color/purple_700"
+                    app:boxBackgroundColor="@color/white">
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={printer.manufacturer}"
+                        android:textSize="18sp"
+                        android:inputType="textCapWords"
+                        android:id="@+id/inputManufacture"
+                        style="@style/Widget.Material3.AutoCompleteTextView.FilledBox.Dense"/>
+                    <!--            <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:text="@={printer.manufacturer}"-->
+                    <!--                android:textSize="18sp"-->
+                    <!--                android:paddingBottom="4dp"-->
+                    <!--                android:inputType="textCapWords"/>-->
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/printerModelInput"
-            app:layout_constraintStart_toStartOf="parent"
-            android:padding="12dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/purple_700"
-            android:text="@string/location"
-            android:textSize="18sp"
-            android:id="@+id/locationTitle"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/printerManufactureInput"
+                    android:id="@+id/printerModelInput"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/printer_model"
+                    android:textColorHint="@color/purple_700"
+                    app:boxBackgroundColor="@color/white">
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={printer.model}"
+                        android:textSize="18sp"
+                        android:inputType="textCapWords"
+                        android:id="@+id/inputModel"
+                        style="@style/Widget.Material3.AutoCompleteTextView.FilledBox.Dense"/>
+                    <!--            <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:text="@={printer.model}"-->
+                    <!--                android:textSize="18sp"-->
+                    <!--                android:paddingBottom="4dp"-->
+                    <!--                android:inputType="textCapCharacters"/>-->
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/printerModelInput"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:padding="12dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/purple_700"
+                    android:text="@string/location"
+                    android:textSize="18sp"
+                    android:id="@+id/locationTitle"/>
 
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/select"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/locationTitle"
-            android:layout_marginStart="12dp"
-            android:id="@+id/btnLocation"/>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/locationTitle"
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/btnLocation"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/locationTitle"
-            android:text="@{printer.location.fullName}"
-            android:textSize="18sp"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:id="@+id/printerLocation"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/locationTitle"
+                    android:text="@{printer.location.fullName}"
+                    android:textSize="18sp"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:id="@+id/printerLocation"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/printerLocation"
-            app:layout_constraintStart_toStartOf="parent"
-            android:padding="12dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/purple_700"
-            android:text="@string/toners"
-            android:textSize="18sp"
-            android:id="@+id/tonersTitle"/>
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tonersTitle"
-            android:layout_marginStart="12dp"
-            android:id="@+id/btnAddToner"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tonersList"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/btnAddToner"
-            app:layout_constraintBottom_toTopOf="@id/btnDelete"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="8dp"
-            setAdapter="@{adapter}"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/printerLocation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:padding="12dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/purple_700"
+                    android:text="@string/toners"
+                    android:textSize="18sp"
+                    android:id="@+id/tonersTitle"/>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tonersTitle"
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/btnAddToner"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tonersList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/btnAddToner"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="8dp"
+                    setAdapter="@{adapter}"
+                    android:clipToPadding="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delete"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="8dp"
-            app:cornerRadius="12dp"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            app:cornerRadius="0dp"
             android:id="@+id/btnDelete"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

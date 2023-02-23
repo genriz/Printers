@@ -16,7 +16,7 @@ class PrintersListAdapter(private val listener: OnClickListener):
 
     companion object: DiffUtil.ItemCallback<Printer>() {
         override fun areItemsTheSame(oldItem: Printer, newItem: Printer):
-                Boolean = oldItem == newItem
+                Boolean = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Printer, newItem: Printer):
                 Boolean = oldItem.name == newItem.name &&
                 oldItem.manufacturer == newItem.manufacturer &&

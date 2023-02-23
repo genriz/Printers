@@ -16,9 +16,9 @@ class TonersListAdapter(private val listener: OnClickListener):
 
     companion object: DiffUtil.ItemCallback<Toner>() {
         override fun areItemsTheSame(oldItem: Toner, newItem: Toner):
-                Boolean = oldItem == newItem
+                Boolean = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Toner, newItem: Toner):
-                Boolean = oldItem.name == newItem.name
+                Boolean = oldItem.name == newItem.name && oldItem.count == newItem.count
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TonerViewHolder {

@@ -110,6 +110,9 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
     override fun onLocationClick(location: Location, position: Int) {
         locations.remove(location)
         binding.adapter!!.submitList(locations.toMutableList())
+        currentToner.count -= location.tonerCount
+        binding.toner = currentToner
+        binding.executePendingBindings()
     }
 
     override fun onTonerAdd() {
