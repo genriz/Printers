@@ -21,4 +21,5 @@
     <string name="select">Выбрать</string>
     <string name="toner_exist">Расходный материал с таким именем уже существует!</string>
     <string name="printer_exist">Принтер с таким именем уже существует!</string>
+    <string name="used_in">Используется в:</string>
 </resources>

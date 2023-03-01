@@ -23,7 +23,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/printerDesc"
-                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:text="@{printer.name}"
@@ -36,9 +37,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/printerName"
-                android:padding="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
                 android:text="@{printer.printerDesc}"
                 android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/printerLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/printerDesc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:text="@{printer.location.fullName}"
+                android:textSize="14sp"
+                android:textColor="@color/purple_700"
+                android:layout_marginBottom="8dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

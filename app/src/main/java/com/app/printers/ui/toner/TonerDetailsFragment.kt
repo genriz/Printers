@@ -9,14 +9,16 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.app.printers.R
 import com.app.printers.adapters.LocationsDetailedListAdapter
+import com.app.printers.adapters.PrintersListAdapter
 import com.app.printers.databinding.FragmentTonerDetailsBinding
 import com.app.printers.model.Location
+import com.app.printers.model.Printer
 import com.app.printers.model.Toner
 import com.app.printers.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 
 class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickListener,
-    DialogLocations.OnLocationSelected {
+    DialogLocations.OnLocationSelected, PrintersListAdapter.OnClickListener {
 
     private lateinit var binding: FragmentTonerDetailsBinding
     private val viewModel by lazy { ViewModelProvider(this)[TonerDetailsViewModel::class.java] }
@@ -24,6 +26,7 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
     private var locations = ArrayList<Location>()
     private var currentToner = Toner()
     private var allToners = ArrayList<Toner>()
+    private var currentPrinters = ArrayList<Printer>()
     private var isEdit = false
 
     override fun onCreateView(
@@ -37,6 +40,7 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
         super.onViewCreated(view, savedInstanceState)
 
         binding.adapter = LocationsDetailedListAdapter(this)
+        binding.adapter2 = PrintersListAdapter(this)
 
         arguments?.let{
             viewModel.getTonerById(it.getInt("id")).observe(viewLifecycleOwner){toner->
@@ -67,6 +71,19 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
             toners?.let{
                 allToners.clear()
                 allToners.addAll(toners)
+            }
+        }
+
+        viewModel.getAllPrinters().observe(viewLifecycleOwner){printers->
+            printers?.let{
+                currentPrinters.clear()
+                printers.forEach { printer->
+                    if (printer.tonersIds.contains(currentToner.id)){
+                        currentPrinters.add(printer)
+                    }
+                }
+                binding.adapter2!!.submitList(currentPrinters)
+                binding.executePendingBindings()
             }
         }
 
@@ -152,6 +169,10 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
     override fun onLocationSelected(location: Location) {
         locations.add(location)
         binding.adapter!!.submitList(locations.toMutableList())
+    }
+
+    override fun onPrinterClick(printer: Printer, position: Int) {
+        //TODO nothing to do
     }
 
 }

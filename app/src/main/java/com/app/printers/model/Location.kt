@@ -12,7 +12,8 @@ class Location{
     var room: String = ""
     val fullName
         get():String{
-            return "$office $room"
+            return "$office${if (floor=="") "" else ", $floor эт."}" +
+                    if (room=="") "" else ", к.$room"
         }
     var tonerCount: Int = 0
     var printerCount: Int = 0

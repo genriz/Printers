@@ -10,6 +10,9 @@
         <variable
             name="adapter"
             type="com.app.printers.adapters.LocationsDetailedListAdapter" />
+        <variable
+            name="adapter2"
+            type="com.app.printers.adapters.PrintersListAdapter" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -71,16 +74,18 @@
                     app:layout_constraintEnd_toStartOf="@id/inStockCount"
                     app:layout_constraintTop_toBottomOf="@id/tonerNameInput"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     android:textColor="@color/purple_700"
                     android:id="@+id/inStockTitle"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="12dp"
+                    android:layout_marginEnd="22dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tonerNameInput"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     android:text="@{String.valueOf(toner.count)}"
                     android:textColor="@color/purple_700"
                     android:id="@+id/inStockCount"/>
@@ -104,6 +109,30 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="8dp"
                     setAdapter="@{adapter}"
+                    android:clipToPadding="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/used_in"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/locationsList"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_700"
+                    android:id="@+id/usedInTitle"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/printersList"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/usedInTitle"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    setAdapter="@{adapter2}"
                     android:clipToPadding="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 

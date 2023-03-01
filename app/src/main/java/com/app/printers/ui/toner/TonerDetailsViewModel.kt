@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.printers.data.Repository
 import com.app.printers.model.Location
+import com.app.printers.model.Printer
 import com.app.printers.model.Toner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,6 +39,10 @@ class TonerDetailsViewModel: ViewModel() {
 
     fun getLocations(): LiveData<List<Location>>{
         return Repository.getLocations()
+    }
+
+    fun getAllPrinters(): LiveData<List<Printer>> {
+        return Repository.getPrinters()
     }
 
 }
