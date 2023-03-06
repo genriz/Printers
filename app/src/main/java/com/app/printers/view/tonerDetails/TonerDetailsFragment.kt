@@ -130,8 +130,6 @@ class TonerDetailsFragment : Fragment(), LocationsDetailedListAdapter.OnClickLis
         binding.adapter!!.submitList(viewModel.currentLocations.toMutableList())
     }
 
-    override fun onPrinterClick(printer: Printer, position: Int) {
-        //TODO nothing to do
-    }
+    override fun onPrinterClick(printer: Printer, position: Int) {}
 
 }
