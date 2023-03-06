@@ -5,7 +5,7 @@
     <data>
         <variable
             name="adapter"
-            type="com.app.printers.adapters.PrintersListAdapter" />
+            type="com.app.printers.view.adapters.PrintersListAdapter" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

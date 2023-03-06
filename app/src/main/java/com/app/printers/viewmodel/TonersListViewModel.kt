@@ -1,4 +1,4 @@
-package com.app.printers.ui.main
+package com.app.printers.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

@@ -4,19 +4,19 @@
     android:id="@+id/nav_graph"
     app:startDestination="@+id/MainFragment">
     <fragment
-        android:name="com.app.printers.ui.main.MainFragment"
+        android:name="com.app.printers.view.main.MainFragment"
         android:id="@+id/MainFragment">
     </fragment>
     <fragment
-        android:name="com.app.printers.ui.printer.PrinterDetailsFragment"
+        android:name="com.app.printers.view.printerDetails.PrinterDetailsFragment"
         android:id="@+id/PrinterDetailsFragment"/>
     <fragment
-        android:name="com.app.printers.ui.toner.TonerDetailsFragment"
+        android:name="com.app.printers.view.tonerDetails.TonerDetailsFragment"
         android:id="@+id/TonerDetailsFragment"/>
     <fragment
         android:id="@+id/SettingsFragment"
-        android:name="com.app.printers.ui.settings.SettingsFragment"/>
+        android:name="com.app.printers.view.settings.SettingsFragment"/>
     <fragment
         android:id="@+id/LocationDetailsFragment"
-        android:name="com.app.printers.ui.settings.LocationDetailsFragment" />
+        android:name="com.app.printers.view.settings.LocationDetailsFragment" />
 </navigation>

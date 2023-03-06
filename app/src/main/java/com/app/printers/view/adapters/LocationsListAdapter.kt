@@ -1,17 +1,17 @@
-package com.app.printers.adapters
+package com.app.printers.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.app.printers.databinding.TonerLocationsListItemBinding
+import com.app.printers.databinding.LocationsListItemBinding
 import com.app.printers.model.Location
 
-class LocationsDetailedListAdapter(private val listener: OnClickListener):
-    ListAdapter<Location, LocationsDetailedListAdapter.LocationViewHolder>(Companion) {
+class LocationsListAdapter(private val listener: OnClickListener):
+    ListAdapter<Location, LocationsListAdapter.LocationViewHolder>(Companion) {
 
-    class LocationViewHolder(val binding: TonerLocationsListItemBinding) :
+    class LocationViewHolder(val binding: LocationsListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     companion object: DiffUtil.ItemCallback<Location>() {
@@ -23,7 +23,7 @@ class LocationsDetailedListAdapter(private val listener: OnClickListener):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return LocationViewHolder(TonerLocationsListItemBinding
+        return LocationViewHolder(LocationsListItemBinding
             .inflate(layoutInflater,parent,false))
     }
 
@@ -31,23 +31,6 @@ class LocationsDetailedListAdapter(private val listener: OnClickListener):
         val location = getItem(position)
         holder.binding.location = location
         holder.binding.executePendingBindings()
-
-        holder.binding.btnAddToner.setOnClickListener {
-            location.tonerCount++
-            holder.binding.location = location
-            holder.binding.executePendingBindings()
-            listener.onTonerAdd()
-        }
-
-        holder.binding.btnRemoveToner.setOnClickListener {
-            if (location.tonerCount>0){
-                location.tonerCount--
-                holder.binding.location = location
-                holder.binding.executePendingBindings()
-                listener.onTonerRemove()
-            }
-        }
-
         holder.itemView.setOnClickListener {
             listener.onLocationClick(location, position)
         }
@@ -55,7 +38,5 @@ class LocationsDetailedListAdapter(private val listener: OnClickListener):
 
     interface OnClickListener{
         fun onLocationClick(location: Location, position: Int)
-        fun onTonerAdd()
-        fun onTonerRemove()
     }
 }

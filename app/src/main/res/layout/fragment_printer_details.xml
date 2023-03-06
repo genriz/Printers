@@ -9,7 +9,7 @@
             type="com.app.printers.model.Printer" />
         <variable
             name="adapter"
-            type="com.app.printers.adapters.TonersListAdapter" />
+            type="com.app.printers.view.adapters.TonersListAdapter" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

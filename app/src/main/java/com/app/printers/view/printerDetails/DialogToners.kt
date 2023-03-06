@@ -1,4 +1,4 @@
-package com.app.printers.ui.printer
+package com.app.printers.view.printerDetails
 
 import android.app.Dialog
 import android.content.Context
@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Window
 import android.view.WindowManager
-import com.app.printers.adapters.TonersListAdapter
+import com.app.printers.view.adapters.TonersListAdapter
 import com.app.printers.databinding.DialogTonersBinding
 import com.app.printers.model.Toner
 

@@ -1,4 +1,4 @@
-package com.app.printers.ui.toner
+package com.app.printers.view.tonerDetails
 
 import android.app.Dialog
 import android.content.Context
@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Window
 import android.view.WindowManager
-import com.app.printers.adapters.LocationsListAdapter
+import com.app.printers.view.adapters.LocationsListAdapter
 import com.app.printers.databinding.DialogLocationsBinding
 import com.app.printers.model.Location
 

@@ -1,11 +1,10 @@
-package com.app.printers.ui.settings
+package com.app.printers.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.printers.data.Repository
 import com.app.printers.model.Location
-import com.app.printers.model.Printer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

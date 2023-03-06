@@ -1,4 +1,4 @@
-package com.app.printers.ui.settings
+package com.app.printers.view.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.app.printers.R
-import com.app.printers.adapters.LocationsListAdapter
+import com.app.printers.view.adapters.LocationsListAdapter
 import com.app.printers.databinding.FragmentSettingsBinding
 import com.app.printers.model.Location
-import com.app.printers.ui.main.MainActivity
+import com.app.printers.view.main.MainActivity
+import com.app.printers.viewmodel.SettingsViewModel
 
 class SettingsFragment:Fragment(), LocationsListAdapter.OnClickListener {
 

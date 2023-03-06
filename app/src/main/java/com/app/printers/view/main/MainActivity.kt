@@ -1,4 +1,4 @@
-package com.app.printers.ui.main
+package com.app.printers.view.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

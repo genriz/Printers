@@ -1,4 +1,4 @@
-package com.app.printers.adapters
+package com.app.printers.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

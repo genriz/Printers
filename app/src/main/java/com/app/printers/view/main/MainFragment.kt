@@ -1,4 +1,4 @@
-package com.app.printers.ui.main
+package com.app.printers.view.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.printers.R
-import com.app.printers.adapters.PagerMainAdapter
+import com.app.printers.view.adapters.PagerMainAdapter
 import com.app.printers.databinding.FragmentMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 

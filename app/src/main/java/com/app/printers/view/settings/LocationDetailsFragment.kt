@@ -1,4 +1,4 @@
-package com.app.printers.ui.settings
+package com.app.printers.view.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.app.printers.databinding.FragmentLocationDetailsBinding
 import com.app.printers.model.Location
-import com.app.printers.ui.main.MainActivity
+import com.app.printers.view.main.MainActivity
+import com.app.printers.viewmodel.SettingsViewModel
 
 class LocationDetailsFragment : Fragment() {
 

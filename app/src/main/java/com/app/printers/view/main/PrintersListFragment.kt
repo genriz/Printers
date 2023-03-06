@@ -1,4 +1,4 @@
-package com.app.printers.ui.main
+package com.app.printers.view.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.app.printers.R
-import com.app.printers.adapters.PrintersListAdapter
+import com.app.printers.view.adapters.PrintersListAdapter
 import com.app.printers.databinding.FragmentPrintersListBinding
 import com.app.printers.model.Printer
+import com.app.printers.viewmodel.PrintersListViewModel
 
 class PrintersListFragment : Fragment(), PrintersListAdapter.OnClickListener {
 
